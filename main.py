@@ -1,48 +1,65 @@
 import random
-choice = int(input('pick a number 1-3, rock is 1, paper is 2, scissors is 3: '))
-if choice == 1:
-    print('you have picked rock')
-elif choice == 2:
-    print('you have picked paper')
-elif choice == 3:
-    print('you have picked scissors')
-else:
-    print('you did not choose a number 1-3, please pick 1-3 next time! : (')
-    while choice < 1 or choice > 3:
-        choice = int(input('pick a number 1-3, rock is 1, paper is 2, scissors is 3: '))
-if choice == 1:
-    print('you have picked rock')
-elif choice == 2:
-    print('you have picked paper')
-elif choice == 3:
-    print('you have picked scissors')
-print('the computer is deciding what to pick')
-computer=random.randint(4,6)
-if computer == 4:
-    print('the computer has picked rock')
-elif computer == 5:
-    print('the computer has picked paper')
-elif computer == 6:
-    print('the computer has picked scissors')
-else:
-    print('error.')
-if choice == 1 and computer == 4:
-    print('you tie! : /')
-elif choice == 1 and computer == 5:
-    print('you lose! : (')
-elif choice == 1 and computer == 6:
-    print('you win! : )')
-elif choice == 2 and computer == 4:
-    print('you win! : )')
-elif choice == 2 and computer == 5:
-    print('you tie! : /')
-elif choice == 2 and computer == 6:
-    print('you lose! : (')
-elif choice == 3 and computer == 4:
-    print('you lose! : (')
-elif choice == 3 and computer == 5:
-    print('you win! : )')
-elif choice == 3 and computer == 6:
-    print('you tie! : /')
-else:
-    print('this is awkward.')
+import tkinter as tk
+#a complete rework of my program, now with a basic gui and interactive buttons.
+root = tk.Tk()
+root.geometry('250x250') #window size
+root.title('Rock Paper Scissors')
+label= tk.Label(root, text='pick one.', font=('Arial', 18))
+label.pack()
+
+computer_choices = {
+    '0': 'rock',
+    '1': 'paper',
+    '2': 'scissors'
+} #this lets the computer have choice once given the randint function
+
+def player_rock():
+    com = computer_choices[str(random.randint(0,2))] #makes the int turn into a string
+    if com == 'rock':
+        match_results = 'draw!'
+    elif com == 'paper':
+        match_results = 'computer wins!'
+    else:
+        match_results = 'player wins!' #save an extra few bytes instead of doing another elif because there is no more other options, i am smart.
+    results.config(text=match_results)
+
+def player_paper():
+    com = computer_choices[str(random.randint(0, 2))]
+    if com == 'rock':
+        match_results = 'player wins!'
+    elif com == 'paper':
+        match_results = 'draw!'
+    else:
+        match_results = 'computer wins!'
+    results.config(text=match_results)
+
+def player_scissors():
+    com = computer_choices[str(random.randint(0, 2))]
+    if com == 'rock':
+        match_results = 'computer wins!'
+    elif com == 'paper':
+        match_results = 'player wins!'
+    else:
+        match_results = 'draw!'
+    results.config(text=match_results)
+
+results = tk.Label(root, text='', font=('Arial', 15))
+results.pack(pady=10) #centers the text to be above the buttons, yet below the title
+
+rock_button = tk.Button(root, text='rock', font=('Arial',17))
+rock_button.config(command=player_rock)
+rock_button.pack(side=tk.LEFT)
+
+paper_button = tk.Button(root, text='paper', font=('Arial',17))
+paper_button.config(command=player_paper)
+paper_button.pack(side=tk.LEFT)
+
+scissors_button = tk.Button(root, text='scissors', font=('Arial',17))
+scissors_button.config(command=player_scissors)
+scissors_button.pack(side=tk.LEFT)
+
+
+root.mainloop()
+
+
+
